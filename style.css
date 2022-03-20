@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    max-width: 900px;
+    max-height: 900px;
+}
+
+.box {
+    min-width: 4px;
+    flex: 1;
+    border: 2px solid blue;
+    background-color: pink;
+}
