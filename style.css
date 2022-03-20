@@ -4,9 +4,15 @@
     max-height: 900px;
 }
 
-.box {
+.row {
+    display: block;
+    gap: 1px;
+}
+
+.cell {
     min-width: 4px;
     flex: 1;
+    gap: 1px;
     border: 2px solid blue;
     background-color: pink;
 }
