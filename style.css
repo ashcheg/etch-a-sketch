@@ -1,18 +1,21 @@
 .container {
     display: flex;
+    margin: auto;
+    flex-direction: column;
     max-width: 900px;
     max-height: 900px;
 }
 
 .row {
-    display: block;
-    gap: 1px;
+    display: flex;
 }
 
 .cell {
-    min-width: 4px;
     flex: 1;
+    aspect-ratio: 1/1;
+    min-width: 4px;
+    min-height: 4px;
     gap: 1px;
-    border: 2px solid blue;
+    border: 0.2px solid blue;
     background-color: pink;
 }
