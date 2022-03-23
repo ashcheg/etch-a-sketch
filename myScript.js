@@ -1,5 +1,5 @@
 const container = document.querySelector(".container");
-const cell = document.querySelector(".cell");
+
 
 
 function createGrid(num) {
@@ -21,3 +21,8 @@ function createGrid(num) {
 }
 
 createGrid(16);
+
+const cells = Array.from(document.querySelectorAll(".cell"));
+cells.forEach(cell => cell.addEventListener('mouseenter', function(event) {
+    event.target.classList.add('newColor');
+}))
