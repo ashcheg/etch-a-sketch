@@ -1,4 +1,6 @@
 const container = document.querySelector(".container");
+const cell = document.querySelector(".cell");
+
 
 function createGrid(num) {
     // iteration over rows
