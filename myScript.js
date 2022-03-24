@@ -38,28 +38,35 @@ function randomRGB(e) {
 }
 
 function changeMode(e) {
+    const cells = getCells();
     let buttonID = e.target.getAttribute('id');
-    if (buttonID === 'newGrid') {
 
+    if (buttonID === 'newGrid') {
         createGrid();
+        cells = getCells();
     }
 
     if (buttonID === 'randomColor') {
-        const cells = getCells();
         cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
             e.target.style.backgroundColor = randomRGB();
     }))
+    }
+
+    if (buttonID === 'translucency') {
+        cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
+            e.target.style.backgroundColor = drawColor;
+            //e.target.style.opacity = 0.1;
+        }))
     }
 }
 
 const newGridButton = document.querySelector('#newGrid');
 const randomRgbButton = document.querySelector('#randomColor');
+const drawColor = document.querySelector('#drawColor')
+const bckgrndColor = document.querySelector('#bckgrndColor');
 const buttons = Array.from(document.querySelectorAll('button'));
 
 buttons.forEach(button => button.addEventListener('click', changeMode));
-
-// newGridButton.addEventListener('click', createGrid);
-// randomRgbButton.addEventListener('click', randomRGB);
 
 /* Make modes: default and rainbow
 when button pressed => change mode function

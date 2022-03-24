@@ -28,3 +28,7 @@
 #newGrid {
     text-align: center;
 }
+
+.translucent {
+    opacity: 0.1;
+}
