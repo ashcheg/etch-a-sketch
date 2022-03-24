@@ -20,6 +20,11 @@
     background-color: pink;
 }
 
+
 .newColor {
     background-color: black;
+}
+
+#newGrid {
+    text-align: center;
 }
