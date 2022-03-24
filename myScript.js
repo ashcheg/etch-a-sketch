@@ -30,10 +30,7 @@ function randomRGB(e) {
     const g = Math.floor(Math.random() * 256);
     const b = Math.floor(Math.random() * 256);
     const rgb = `rgb(${r},${g},${b})`;
-    const cells = Array.from(document.querySelectorAll(".cell"));
-    cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
-        e.target.style.backgroundColor = rgb;
-    }))
+    return rgb;
 }
 
 function changeMode(e) {
@@ -43,7 +40,10 @@ function changeMode(e) {
     }
 
     if (buttonID === 'randomColor') {
-        randomRGB();
+        const cells = Array.from(document.querySelectorAll(".cell"));
+        cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
+            e.target.style.backgroundColor = randomRGB();
+    }))
     }
 }
 
