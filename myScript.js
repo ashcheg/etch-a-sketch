@@ -1,9 +1,13 @@
 const container = document.querySelector(".container");
 
-
+function getCells() {
+    const cells = Array.from(document.querySelectorAll(".cell"));
+    return cells;
+}
 
 function createGrid(e) {
     num = prompt('enter number of rows/columns:');
+    container.innerHTML = '';
     // iteration over rows
     for (i=0; i<num; i++) {
         const row = document.createElement('div');
@@ -19,7 +23,7 @@ function createGrid(e) {
         
         container.appendChild(row);
     }
-    const cells = Array.from(document.querySelectorAll(".cell"));
+    const cells = getCells();
     cells.forEach(cell => cell.addEventListener('mouseenter', function(event) {
         event.target.classList.add('newColor');
     }))
@@ -36,11 +40,12 @@ function randomRGB(e) {
 function changeMode(e) {
     let buttonID = e.target.getAttribute('id');
     if (buttonID === 'newGrid') {
+
         createGrid();
     }
 
     if (buttonID === 'randomColor') {
-        const cells = Array.from(document.querySelectorAll(".cell"));
+        const cells = getCells();
         cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
             e.target.style.backgroundColor = randomRGB();
     }))
@@ -63,7 +68,7 @@ Function generating random rgb is separate and called for each cell
 
 Later add :
 1. button for choosing particular color;
-2. btton for adjusting translucency;
+2. button for adjusting translucency;
 
 Later: make color change only when mousedown AND mouseover
 */
