@@ -5,6 +5,8 @@ function getCells() {
     return cells;
 }
 
+
+// create grid using flexbox and block
 function createGrid(e) {
     num = prompt('enter number of rows/columns:');
     container.innerHTML = '';
@@ -62,8 +64,8 @@ function changeMode(e) {
 
 const newGridButton = document.querySelector('#newGrid');
 const randomRgbButton = document.querySelector('#randomColor');
-const drawColor = document.querySelector('#drawColor')
-const bckgrndColor = document.querySelector('#bckgrndColor');
+const drawColor = document.querySelector('.drawColor');
+const bckgrndColor = document.querySelector('.bckgrndColor');
 const buttons = Array.from(document.querySelectorAll('button'));
 
 buttons.forEach(button => button.addEventListener('click', changeMode));
