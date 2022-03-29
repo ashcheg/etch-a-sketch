@@ -19,13 +19,12 @@ function createGrid(e) {
         for (j=0; j<num; j++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
-            // cell.textContent = `col${j+1}-row${i+1}`; 
             row.appendChild(cell);
         }
         
         container.appendChild(row);
     }
-    const cells = getCells();
+    let cells = getCells();
     cells.forEach(cell => cell.addEventListener('mouseenter', function(event) {
         event.target.classList.add('newColor');
     }))
@@ -40,7 +39,7 @@ function randomRGB(e) {
 }
 
 function changeMode(e) {
-    const cells = getCells();
+    let cells = getCells();
     let buttonID = e.target.getAttribute('id');
 
     if (buttonID === 'newGrid') {
@@ -64,20 +63,29 @@ function changeMode(e) {
 
 const newGridButton = document.querySelector('#newGrid');
 const randomRgbButton = document.querySelector('#randomColor');
-const drawColor = document.querySelector('.drawColor');
-const bckgrndColor = document.querySelector('.bckgrndColor');
 const buttons = Array.from(document.querySelectorAll('button'));
 
 buttons.forEach(button => button.addEventListener('click', changeMode));
 
-/* Make modes: default and rainbow
-when button pressed => change mode function
-inside change mode function => calls to functions default and rainbow
-Function generating random rgb is separate and called for each cell
+//change drawing color
+const drawColor = document.getElementById('colorPicker');
+drawColor.oninput = function () {
+    let cells = getCells();
+    cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
+        e.target.style.backgroundColor = drawColor.value;
+    }))
+}
 
-Later add :
-1. button for choosing particular color;
-2. button for adjusting translucency;
+//change canvas background
+const newBckgrnd = document.getElementById('bckgrndColor');
+newBckgrnd.oninput = function () {
+    let cells = getCells();
+    cells.forEach(cell => cell.style.backgroundColor = newBckgrnd.value)
+}
 
-Later: make color change only when mousedown AND mouseover
+/* 
+1. Fix when changing background resests the drawing
+2. Add DEFAULTs grid, drawing colors, background color, transparency. 
+3. Button for adjusting translucency;
+4. Make color change only when mousedown AND mouseover
 */
