@@ -4,6 +4,7 @@
     flex-direction: column;
     max-width: 900px;
     max-height: 900px;
+    border: black solid 5px;
 }
 
 .row {
@@ -16,8 +17,7 @@
     min-width: 4px;
     min-height: 4px;
     gap: 1px;
-    border: 0.2px solid blue;
-    background-color: pink;
+    background-color: white;
 }
 
 

@@ -7,8 +7,7 @@ function getCells() {
 
 
 // create grid using flexbox and block
-function createGrid(e) {
-    num = prompt('enter number of rows/columns:');
+function createGrid(num) {
     container.innerHTML = '';
     // iteration over rows
     for (i=0; i<num; i++) {
@@ -43,22 +42,31 @@ function changeMode(e) {
     let buttonID = e.target.getAttribute('id');
 
     if (buttonID === 'newGrid') {
-        createGrid();
+        num = prompt('enter number of rows/columns:');
+        createGrid(num);
         cells = getCells();
     }
 
     if (buttonID === 'randomColor') {
         cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
             e.target.style.backgroundColor = randomRGB();
-    }))
+        }));
     }
 
+    /*
     if (buttonID === 'translucency') {
         cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
-            e.target.style.backgroundColor = drawColor;
-            //e.target.style.opacity = 0.1;
-        }))
+            if (e.target.style.backgroundColor === drawColor){
+                e.target.style.opacity += 0.1;
+            } elseif () {
+
+            } else {
+                e.target.style.backgroundColor = drawColor;
+                e.target.style.opacity = 0.1;
+            }
+        }));
     }
+    */
 }
 
 const newGridButton = document.querySelector('#newGrid');
@@ -66,6 +74,7 @@ const randomRgbButton = document.querySelector('#randomColor');
 const buttons = Array.from(document.querySelectorAll('button'));
 
 buttons.forEach(button => button.addEventListener('click', changeMode));
+createGrid(30);
 
 //change drawing color
 const drawColor = document.getElementById('colorPicker');
@@ -85,7 +94,7 @@ newBckgrnd.oninput = function () {
 
 /* 
 1. Fix when changing background resests the drawing
-2. Add DEFAULTs grid, drawing colors, background color, transparency. 
-3. Button for adjusting translucency;
+2. Add DEFAULT transparency. 
+3. Button for adjusting transparancy;
 4. Make color change only when mousedown AND mouseover
 */
