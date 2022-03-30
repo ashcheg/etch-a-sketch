@@ -54,16 +54,20 @@ function changeMode(e) {
     }
 
     if (buttonID === 'translucency') {
+        translucency = true;
         cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
-            let opacity = cell.style.opacity;
-            if (cell.classList.contains('shade')) {
-                cell.style.opacity =(Number(opacity) + 0.1);
-            } else {
-                cell.classList.add('shade');
-                cell.setAttribute('style', 'opacity:0.1');
-                cell.style.backgroundColor = drawColor; 
+            if (translucency) {
+                let opacity = cell.style.opacity;
+                if (cell.classList.contains('shade')) {
+                    cell.style.opacity =(Number(opacity) + 0.1);
+                } else {
+                    cell.classList.add('shade');
+                    cell.setAttribute('style', 'opacity:0.1');
+                    cell.style.backgroundColor = drawColor; 
+                }
             }
         }));
+            
     }
 }
 
@@ -71,12 +75,16 @@ const newGridButton = document.querySelector('#newGrid');
 const randomRgbButton = document.querySelector('#randomColor');
 const buttons = Array.from(document.querySelectorAll('button'));
 
+//make translucency off by default
+let translucency = false;
+
 buttons.forEach(button => button.addEventListener('click', changeMode));
 createGrid(30);
 
 //change drawing color
 const drawColor = document.getElementById('colorPicker');
 drawColor.oninput = function () {
+    translucency = false;
     let cells = getCells();
     cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
         e.target.style.backgroundColor = drawColor.value;
@@ -86,6 +94,7 @@ drawColor.oninput = function () {
 //change canvas background
 const newBckgrnd = document.getElementById('bckgrndColor');
 newBckgrnd.oninput = function () {
+    translucency = false;
     let cells = getCells();
     cells.forEach(cell => cell.style.backgroundColor = newBckgrnd.value)
 }
