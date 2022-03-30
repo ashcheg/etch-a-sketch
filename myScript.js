@@ -53,20 +53,18 @@ function changeMode(e) {
         }));
     }
 
-    /*
     if (buttonID === 'translucency') {
         cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
-            if (e.target.style.backgroundColor === drawColor){
-                e.target.style.opacity += 0.1;
-            } elseif () {
-
+            let opacity = cell.style.opacity;
+            if (cell.classList.contains('shade')) {
+                cell.style.opacity =(Number(opacity) + 0.1);
             } else {
-                e.target.style.backgroundColor = drawColor;
-                e.target.style.opacity = 0.1;
+                cell.classList.add('shade');
+                cell.setAttribute('style', 'opacity:0.1');
+                cell.style.backgroundColor = drawColor; 
             }
         }));
     }
-    */
 }
 
 const newGridButton = document.querySelector('#newGrid');
