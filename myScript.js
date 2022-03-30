@@ -23,10 +23,6 @@ function createGrid(num) {
         
         container.appendChild(row);
     }
-    let cells = getCells();
-    cells.forEach(cell => cell.addEventListener('mouseenter', function(event) {
-        event.target.classList.add('newColor');
-    }))
 }
 
 function randomRGB(e) {
@@ -58,13 +54,15 @@ function changeMode(e) {
         cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
             // making sure that we haven't changed color and are still using translucency
             if (translucency) {
-                let opacity = cell.style.opacity;
                 if (cell.classList.contains('shade')) {
+                    let opacity = cell.style.opacity;
+                    //MAKING EXTRA ITERATIONS????
+                    console.log(opacity);
                     cell.style.opacity =(Number(opacity) + 0.1);
                 } else {
                     cell.classList.add('shade');
                     cell.setAttribute('style', 'opacity:0.1');
-                    cell.style.backgroundColor = drawColor; 
+                    cell.style.backgroundColor = drawColor.value; 
                 }
             }
         }));
@@ -80,7 +78,14 @@ const buttons = Array.from(document.querySelectorAll('button'));
 let translucency = false;
 
 buttons.forEach(button => button.addEventListener('click', changeMode));
+
+//default black and white grid
 createGrid(30);
+let cells = getCells();
+    cells.forEach(cell => cell.addEventListener('mouseenter', function(event) {
+        event.target.classList.add('drawn');
+        event.target.style.backgroundColor = '#000000';
+    }))
 
 //change drawing color
 const drawColor = document.getElementById('colorPicker');
@@ -107,8 +112,11 @@ newBckgrnd.oninput = function () {
         
 
 /* 
-1. Fix when changing background resests the drawing
+Problems:
+-after changing background color and draw colors multiple time 
+the translucency keeps increasing faster. 
+Every time I change color and press translucency => beginning translucency is bigger by 0.1
 
-3. Button for adjusting transparency;
-4. Make color change only when mousedown AND mouseover
+-- Button for adjusting transparency;
+-- Make color change only when mousedown AND mouseover
 */
