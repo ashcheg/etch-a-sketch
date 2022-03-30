@@ -56,6 +56,7 @@ function changeMode(e) {
     if (buttonID === 'translucency') {
         translucency = true;
         cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
+            // making sure that we haven't changed color and are still using translucency
             if (translucency) {
                 let opacity = cell.style.opacity;
                 if (cell.classList.contains('shade')) {
@@ -88,6 +89,7 @@ drawColor.oninput = function () {
     let cells = getCells();
     cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
         e.target.style.backgroundColor = drawColor.value;
+        e.target.classList.add('drawn');
     }))
 }
 
@@ -96,12 +98,17 @@ const newBckgrnd = document.getElementById('bckgrndColor');
 newBckgrnd.oninput = function () {
     translucency = false;
     let cells = getCells();
-    cells.forEach(cell => cell.style.backgroundColor = newBckgrnd.value)
-}
+    cells.forEach(cell => {
+        if (!(cell.classList.contains('drawn') || cell.classList.contains('shade'))) {
+            cell.style.backgroundColor = newBckgrnd.value;
+        };
+    });
+};
+        
 
 /* 
 1. Fix when changing background resests the drawing
-2. Add DEFAULT transparency. 
-3. Button for adjusting transparancy;
+
+3. Button for adjusting transparency;
 4. Make color change only when mousedown AND mouseover
 */
