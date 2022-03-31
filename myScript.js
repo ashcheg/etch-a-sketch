@@ -44,14 +44,14 @@ function changeMode(e) {
     }
 
     if (buttonID === 'randomColor') {
-        cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
+        cells.forEach(cell => cell.onmouseenter = function(e) {
             e.target.style.backgroundColor = randomRGB();
-        }));
+        });
     }
 
     if (buttonID === 'translucency') {
         translucency = true;
-        cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
+        cells.forEach(cell => cell.onmouseenter = function(e) {
             // making sure that we haven't changed color and are still using translucency
             if (translucency) {
                 if (cell.classList.contains('shade')) {
@@ -59,13 +59,15 @@ function changeMode(e) {
                     //MAKING EXTRA ITERATIONS????
                     console.log(opacity);
                     cell.style.opacity =(Number(opacity) + 0.1);
+                    console.log('increased opacity');
                 } else {
                     cell.classList.add('shade');
                     cell.setAttribute('style', 'opacity:0.1');
                     cell.style.backgroundColor = drawColor.value; 
+                    console.log('added class shade');
                 }
             }
-        }));
+        });
             
     }
 }
@@ -116,6 +118,10 @@ Problems:
 -after changing background color and draw colors multiple time 
 the translucency keeps increasing faster. 
 Every time I change color and press translucency => beginning translucency is bigger by 0.1
+
+-after creating new grid drawing is stopped until new color is chosen: 
+add draw and bg color to be the same as in color pickers
+
 
 -- Button for adjusting transparency;
 -- Make color change only when mousedown AND mouseover
