@@ -128,6 +128,8 @@ newBckgrnd.oninput = function () {
 /* 
 Things to improve:
 -- Make color change only when mousedown AND mouseover;
+-- add clear canvas button;
 -- improve changeMode function;
 -- make UI look pretty;
+-- make a grid size a slider;
 */
