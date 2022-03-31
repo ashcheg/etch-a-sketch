@@ -46,6 +46,7 @@ function changeMode(e) {
     if (buttonID === 'randomColor') {
         cells.forEach(cell => cell.onmouseenter = function(e) {
             e.target.style.backgroundColor = randomRGB();
+            cell.classList.add('randomRGB');
         });
     }
 
@@ -56,9 +57,9 @@ function changeMode(e) {
             if (translucency) {
                 if (cell.classList.contains('shade')) {
                     let opacity = cell.style.opacity;
-                    //MAKING EXTRA ITERATIONS????
                     console.log(opacity);
                     cell.style.opacity =(Number(opacity) + 0.1);
+                    cell.style.backgroundColor = drawColor.value;
                     console.log('increased opacity');
                 } else {
                     cell.classList.add('shade');
@@ -72,6 +73,27 @@ function changeMode(e) {
     }
 }
 
+
+//change drawing color
+function startToDraw(cells) {
+    console.log('started to draw');
+    translucency = false;
+    cells.forEach(cell => cell.onmouseenter = function(e) {
+        e.target.style.backgroundColor = drawColor.value;
+        e.target.classList.add('drawn');
+    });
+};
+
+/*
+    drawColor.oninput = function () {
+        translucency = false;
+        cells.forEach(cell => cell.onmouseenter = function(e) {
+            e.target.style.backgroundColor = drawColor.value;
+            e.target.classList.add('drawn');
+        });
+        */
+
+const drawColor = document.getElementById('colorPicker');
 const newGridButton = document.querySelector('#newGrid');
 const randomRgbButton = document.querySelector('#randomColor');
 const buttons = Array.from(document.querySelectorAll('button'));
@@ -83,13 +105,13 @@ buttons.forEach(button => button.addEventListener('click', changeMode));
 
 //default black and white grid
 createGrid(30);
-let cells = getCells();
-    cells.forEach(cell => cell.addEventListener('mouseenter', function(event) {
-        event.target.classList.add('drawn');
-        event.target.style.backgroundColor = '#000000';
-    }))
 
-//change drawing color
+// change drawing color with colorpicker
+drawColor.oninput = function() {
+    startToDraw(getCells());
+}
+
+/*
 const drawColor = document.getElementById('colorPicker');
 drawColor.oninput = function () {
     translucency = false;
@@ -97,8 +119,10 @@ drawColor.oninput = function () {
     cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
         e.target.style.backgroundColor = drawColor.value;
         e.target.classList.add('drawn');
-    }))
-}
+    }));
+};
+*/
+
 
 //change canvas background
 const newBckgrnd = document.getElementById('bckgrndColor');
@@ -106,7 +130,8 @@ newBckgrnd.oninput = function () {
     translucency = false;
     let cells = getCells();
     cells.forEach(cell => {
-        if (!(cell.classList.contains('drawn') || cell.classList.contains('shade'))) {
+        if (!(cell.classList.contains('drawn') || cell.classList.contains('shade')
+        || cell.classList.contains('randomRGB'))) {
             cell.style.backgroundColor = newBckgrnd.value;
         };
     });
@@ -115,10 +140,6 @@ newBckgrnd.oninput = function () {
 
 /* 
 Problems:
--after changing background color and draw colors multiple time 
-the translucency keeps increasing faster. 
-Every time I change color and press translucency => beginning translucency is bigger by 0.1
-
 -after creating new grid drawing is stopped until new color is chosen: 
 add draw and bg color to be the same as in color pickers
 
