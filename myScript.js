@@ -1,4 +1,5 @@
 const container = document.querySelector(".container");
+let mode = 'original';
 
 function getCells() {
     const cells = Array.from(document.querySelectorAll(".cell"));
@@ -23,6 +24,7 @@ function createGrid(num) {
         
         container.appendChild(row);
     }
+    startToDraw(getCells())
 }
 
 function randomRGB(e) {
@@ -47,6 +49,7 @@ function changeMode(e) {
         cells.forEach(cell => cell.onmouseenter = function(e) {
             e.target.style.backgroundColor = randomRGB();
             cell.classList.add('randomRGB');
+            mode = 'randomRGB';
         });
     }
 
@@ -57,15 +60,20 @@ function changeMode(e) {
             if (translucency) {
                 if (cell.classList.contains('shade')) {
                     let opacity = cell.style.opacity;
-                    console.log(opacity);
-                    cell.style.opacity =(Number(opacity) + 0.1);
-                    cell.style.backgroundColor = drawColor.value;
-                    console.log('increased opacity');
+                    cell.style.opacity = (Number(opacity) + 0.1);
+                    if (mode === 'randomRGB') {
+                        cell.style.backgroundColor = randomRGB();
+                    } else {
+                        cell.style.backgroundColor = drawColor.value;
+                    }
                 } else {
                     cell.classList.add('shade');
                     cell.setAttribute('style', 'opacity:0.1');
-                    cell.style.backgroundColor = drawColor.value; 
-                    console.log('added class shade');
+                    if (mode === 'randomRGB') {
+                        cell.style.backgroundColor = randomRGB();
+                    } else {
+                        cell.style.backgroundColor = drawColor.value;
+                    } 
                 }
             }
         });
@@ -76,22 +84,14 @@ function changeMode(e) {
 
 //change drawing color
 function startToDraw(cells) {
-    console.log('started to draw');
+    mode = 'original';
     translucency = false;
     cells.forEach(cell => cell.onmouseenter = function(e) {
+        cell.style.opacity = 1;
         e.target.style.backgroundColor = drawColor.value;
         e.target.classList.add('drawn');
     });
 };
-
-/*
-    drawColor.oninput = function () {
-        translucency = false;
-        cells.forEach(cell => cell.onmouseenter = function(e) {
-            e.target.style.backgroundColor = drawColor.value;
-            e.target.classList.add('drawn');
-        });
-        */
 
 const drawColor = document.getElementById('colorPicker');
 const newGridButton = document.querySelector('#newGrid');
@@ -111,19 +111,6 @@ drawColor.oninput = function() {
     startToDraw(getCells());
 }
 
-/*
-const drawColor = document.getElementById('colorPicker');
-drawColor.oninput = function () {
-    translucency = false;
-    let cells = getCells();
-    cells.forEach(cell => cell.addEventListener('mouseenter', function(e) {
-        e.target.style.backgroundColor = drawColor.value;
-        e.target.classList.add('drawn');
-    }));
-};
-*/
-
-
 //change canvas background
 const newBckgrnd = document.getElementById('bckgrndColor');
 newBckgrnd.oninput = function () {
@@ -139,11 +126,8 @@ newBckgrnd.oninput = function () {
         
 
 /* 
-Problems:
--after creating new grid drawing is stopped until new color is chosen: 
-add draw and bg color to be the same as in color pickers
-
-
--- Button for adjusting transparency;
--- Make color change only when mousedown AND mouseover
+Things to improve:
+-- Make color change only when mousedown AND mouseover;
+-- improve changeMode function;
+-- make UI look pretty;
 */
